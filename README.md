@@ -27,6 +27,6 @@ We are:
 
 <div align="center">
 
-#### made with :3 by `x44annie` & `alexatsu`
+#### made with meow :3 by `x44annie` & `alexatsu`
 
 </div>
