@@ -1,33 +1,33 @@
-# name: Deploy Discord Bot
+name: Deploy Discord Bot
 
-# on:
-#     push:
-#         branches: [develop]
+on:
+     push:
+         branches: [develop]
 
-# jobs:
-#     deploy:
-#         runs-on: ubuntu-latest
-#         steps:
-#             - name: Deploy via SSH
-#               uses: appleboy/ssh-action@master
-#               with:
-#                   host: ${{ secrets.SSH_HOST }}
-#                   username: ${{ secrets.SSH_USERNAME }}
-#                   key: ${{ secrets.SSH_KEY }}
-#                   script: |
-#                       # Clone, build, and clean up in one go
-#                       rm -rf ~/nebula-bot  # Force-clean any previous runs
-#                       git clone https://github.com/alexatsu/nebula-bot ~/nebula-bot
-#                       cd ~/nebula-bot
-#                       docker build -t nebula-bot .
-#                       docker stop nebula-bot || true
-#                       docker rm nebula-bot || true
-#                       docker run -d \
-#                         --name nebula-bot \
-#                         --restart unless-stopped \
-#                         -e TOKEN="${{ secrets.TOKEN }}" \
-#                         -e LOG_CHANNEL_ID="${{ secrets.LOG_CHANNEL_ID }}" \
-#                         nebula-bot
-#                       cd ~
-#                       rm -rf ~/nebula-bot  # Delete repo after build
-#                       docker system prune -f  # Clean unused Docker data
+jobs:
+   deploy:
+       runs-on: ubuntu-latest
+       steps:
+           - name: Deploy via SSH
+             uses: appleboy/ssh-action@master
+             with:
+                 host: ${{ secrets.SSH_HOST }}
+                 username: ${{ secrets.SSH_USERNAME }}
+                 key: ${{ secrets.SSH_KEY }}
+                 script: |
+                     # Clone, build, and clean up in one go
+                     rm -rf ~/nebula-meowhook  # Force-clean any previous runs
+                     git clone https://github.com/404femme/nebula-meowhook ~/nebula-meowhook
+                     cd ~/nebula-meowhook
+                     docker build -t nebula-meowhook .
+                     docker stop nebula-meowhook || true
+                     docker rm nebula-meowhook || true
+                     docker run -d \
+                       --name nebula-meowhook \
+                       --restart unless-stopped \
+                       -e TOKEN="${{ secrets.TOKEN }}" \
+                       -e LOG_CHANNEL_ID="${{ secrets.LOG_CHANNEL_ID }}" \
+                       nebula-meowhook
+                     cd ~
+                     rm -rf ~/nebula-meowhook  # Delete repo after build
+                     docker system prune -f  # Clean unused Docker data
