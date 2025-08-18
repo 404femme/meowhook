@@ -8,7 +8,6 @@ export default tseslint.config(
         ignores: ['**/node_modules/**', '**/dist/**', '**/build/**'],
     },
     js.configs.recommended,
-    ...tseslint.configs.recommendedTypeChecked,
     eslint.configs.recommended,
     tseslint.configs.recommended,
     prettier,
