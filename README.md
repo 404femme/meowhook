@@ -21,12 +21,12 @@ We are:
 * 🖤 watchers of the voice void
 * 🕷 channel conjurers with `/createvc`
 * ☁️ weather-witches reading API skies
-* 🩶 archivists of logs
+* 🩶 archivists of logs.
 
 ---
 
 <div align="center">
 
-#### made with ᥫ᭡ by `x44annie` & `alexatsu`
+#### made with :3 by `x44annie` & `alexatsu`
 
 </div>
