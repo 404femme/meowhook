@@ -5,7 +5,7 @@ import eslint from '@eslint/js'
 
 export default tseslint.config(
     {
-        ignores: ['**/node_modules/**', '**/dist/**', '**/build/**'],
+        ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', "eslint.config.js"],
     },
     js.configs.recommended,
     eslint.configs.recommended,
