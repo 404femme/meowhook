@@ -1,33 +1,33 @@
 name: Deploy Discord Bot
 
 on:
-     push:
-         branches: [develop]
+  push:
+    branches: [dev]
 
 jobs:
-   deploy:
-       runs-on: ubuntu-latest
-       steps:
-           - name: Deploy via SSH
-             uses: appleboy/ssh-action@master
-             with:
-                 host: ${{ secrets.SSH_HOST }}
-                 username: ${{ secrets.SSH_USERNAME }}
-                 key: ${{ secrets.SSH_KEY }}
-                 script: |
-                     # Clone, build, and clean up in one go
-                     rm -rf ~/nebula-meowhook  # Force-clean any previous runs
-                     git clone https://github.com/404femme/nebula-meowhook ~/nebula-meowhook
-                     cd ~/nebula-meowhook
-                     docker build -t nebula-meowhook .
-                     docker stop nebula-meowhook || true
-                     docker rm nebula-meowhook || true
-                     docker run -d \
-                       --name nebula-meowhook \
-                       --restart unless-stopped \
-                       -e TOKEN="${{ secrets.TOKEN }}" \
-                       -e LOG_CHANNEL_ID="${{ secrets.LOG_CHANNEL_ID }}" \
-                       nebula-meowhook
-                     cd ~
-                     rm -rf ~/nebula-meowhook  # Delete repo after build
-                     docker system prune -f  # Clean unused Docker data
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            # Clone, build, and clean up in one go
+            rm -rf ~/meowhook-bot  # Force-clean any previous runs
+            git clone https://github.com/404femme/nebula-meowhook ~/meowhook-bot
+            cd ~/meowhook-bot
+            docker build -t meowhook-bot .
+            docker stop meowhook-bot || true
+            docker rm meowhook-bot || true
+            docker run -d \
+              --name meowhook-bot \
+              --restart unless-stopped \
+              -e TOKEN="${{ secrets.TOKEN }}" \
+              -e LOG_CHANNEL_ID="${{ secrets.LOG_CHANNEL_ID }}" \
+              meowhook-bot
+            cd ~
+            rm -rf ~/meowhook-bot  # Delete repo after build
+            docker system prune -f  # Clean unused Docker data
