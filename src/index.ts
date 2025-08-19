@@ -1,7 +1,7 @@
 import 'dotenv/config'
-import { client } from '@/shared/client'
+import { client } from '@/shared/consts/client'
 import { registerAllEvents } from '@/events'
-import { validateEnvVars } from '@/shared/config/env-check'
+import { validateEnvVars } from '@/shared/config/env'
 import * as process from 'node:process'
 
 validateEnvVars()

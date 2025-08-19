@@ -1,7 +1,7 @@
 {
-    "name": "meowhook",
-    "version": "1.0.0",
-    "description": "Just the bot",
+    "name": "nebula-bot",
+    "version": "0.2.2",
+    "description": "Discord bot for MidnightNebula",
     "keywords": [
         "bot",
         "ts"
