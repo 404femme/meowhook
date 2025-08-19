@@ -1,4 +1,10 @@
-export const requiredEnvVars = ['LOG_CHANNEL_ID', 'TOKEN']
+export const ENV_VARS = {
+    TOKEN: 'TOKEN',
+    LOG_CHANNEL_ID: 'LOG_CHANNEL_ID',
+    // fill more if needed
+} as const
+
+export const requiredEnvVars = Object.values(ENV_VARS)
 
 export function validateEnvVars() {
     const missingVars = requiredEnvVars.filter(varName => !process.env[varName])

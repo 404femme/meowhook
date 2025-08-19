@@ -1,12 +1,13 @@
 import { deleteMessageEvent } from '@/events/messages/delete'
 import { editMessageEvent } from '@/events/messages/edit'
+import { autoRoleEvent } from '@/events/moderation/auto-role'
 import { banUserEvent } from '@/events/moderation/ban'
 import { handleInvitesEvent } from '@/events/moderation/invites'
 import { kickUserEvent } from '@/events/moderation/kick'
 import { roleUpdateEvent } from '@/events/moderation/roles'
 import { voiceStateUpdateEvent } from '@/events/voice/state'
 import { voiceStreamingEvent } from '@/events/voice/streaming'
-import { client } from '@/shared/client'
+import { client } from '@/shared/consts/client'
 import { Events } from 'discord.js'
 
 export function registerAllEvents() {
@@ -18,6 +19,7 @@ export function registerAllEvents() {
     voiceStateUpdateEvent()
     voiceStreamingEvent()
     handleInvitesEvent()
+    autoRoleEvent()
 
     readyEvent()
 }

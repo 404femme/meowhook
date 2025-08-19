@@ -1,6 +1,6 @@
-import { logChannelId } from '@/shared/config/log'
-import { client } from '@/shared/client'
-import { getLogColor, LogEventTypes } from '@/shared/colors'
+import { logChannelId } from '@/shared/consts/state'
+import { client } from '@/shared/consts/client'
+import { getLogColor, LogEventTypes } from '@/shared/consts/colors'
 import { Events, AuditLogEvent, EmbedBuilder } from 'discord.js'
 
 const threeSeconds = 3000

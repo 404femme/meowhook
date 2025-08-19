@@ -1,6 +1,6 @@
-import { logChannelId, PREVENT_DUPLICATE_MENTIONS } from '@/shared/config/log'
-import { client } from '@/shared/client'
-import { getLogColor, LogEventTypes, type LogEventType } from '@/shared/colors'
+import { logChannelId, PREVENT_DUPLICATE_MENTIONS } from '@/shared/consts/state'
+import { client } from '@/shared/consts/client'
+import { getLogColor, LogEventTypes, type LogEventType } from '@/shared/consts/colors'
 import type {
     GuildMember,
     NewsChannel,

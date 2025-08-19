@@ -1,13 +1,15 @@
 import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import prettier from 'eslint-config-prettier'
+import eslint from '@eslint/js'
 
 export default tseslint.config(
     {
-        ignores: ['**/node_modules/**', '**/dist/**', '**/build/**'],
+        ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', "eslint.config.js"],
     },
     js.configs.recommended,
-    ...tseslint.configs.recommendedTypeChecked,
+    eslint.configs.recommended,
+    tseslint.configs.recommended,
     prettier,
     {
         languageOptions: {
