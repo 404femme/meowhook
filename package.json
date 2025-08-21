@@ -27,7 +27,7 @@
         "start": "tsx src/index.ts"
     },
     "dependencies": {
-        "discord.js": "^14.21.0",
+        "discord.js": "^14.22.0",
         "dotenv": "^17.2.1"
     },
     "devDependencies": {
