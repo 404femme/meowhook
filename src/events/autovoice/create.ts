@@ -1,5 +1,6 @@
 import { client } from '@/shared/consts/client'
-import { ChannelType, Events, PermissionFlagsBits, VoiceState } from 'discord.js'
+import type { VoiceState } from 'discord.js';
+import { ChannelType, Events, PermissionFlagsBits } from 'discord.js'
 import { registerTempChannel } from '@/events/autovoice/tempChannels'
 
 export const LOBBY_CHANNEL_ID = '1408046517142687774'
