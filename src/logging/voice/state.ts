@@ -1,5 +1,5 @@
 import { logChannelId, PREVENT_DUPLICATE_MENTIONS } from '@/shared/consts/state'
-import { createVoiceEmbed } from '@/events/voice/embeds/voice'
+import { createVoiceEmbed } from '@/logging/voice/embeds/voice'
 import { client } from '@/shared/consts/client'
 import { getLogColor, LogEventTypes } from '@/shared/consts/colors'
 import type { EmbedBuilder } from 'discord.js'
