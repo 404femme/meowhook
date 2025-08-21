@@ -1,10 +1,11 @@
 import { logChannelId } from '@/shared/consts/state'
 import { client } from '@/shared/consts/client'
 import { getLogColor, LogEventTypes } from '@/shared/consts/colors'
+import type {
+    Message} from 'discord.js';
 import {
     Events,
     EmbedBuilder,
-    Message,
     type OmitPartialGroupDMChannel,
     type PartialMessage,
 } from 'discord.js'

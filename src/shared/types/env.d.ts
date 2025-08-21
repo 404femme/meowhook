@@ -1,4 +1,4 @@
-import { ENV_VARS } from '@/shared/config/env'
+import type { ENV_VARS } from '@/shared/config/env'
 
 type GeneratedEnvs = {
     [K in keyof typeof ENV_VARS]: string
@@ -6,6 +6,6 @@ type GeneratedEnvs = {
 
 declare global {
     namespace NodeJS {
-        interface ProcessEnv extends GeneratedEnvs {}
+        type ProcessEnv = GeneratedEnvs
     }
 }

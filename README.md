@@ -14,6 +14,7 @@
 
 - Logging
 - Moderation
+- Room Handling
 
 ## How to setup
 
