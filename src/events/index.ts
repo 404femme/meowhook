@@ -7,6 +7,8 @@ import { kickUserEvent } from '@/events/moderation/kick'
 import { roleUpdateEvent } from '@/events/moderation/roles'
 import { voiceStateUpdateEvent } from '@/events/voice/state'
 import { voiceStreamingEvent } from '@/events/voice/streaming'
+import { handleVoiceCreate } from './autovoice/create'
+import { deleteEmpty } from './autovoice/deleteEmpty'
 import { client } from '@/shared/consts/client'
 import { Events } from 'discord.js'
 
@@ -20,6 +22,8 @@ export function registerAllEvents() {
     voiceStreamingEvent()
     handleInvitesEvent()
     autoRoleEvent()
+    handleVoiceCreate()
+    deleteEmpty()
 
     readyEvent()
 }
