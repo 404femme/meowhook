@@ -4,5 +4,5 @@ export const tempChannels = new Set<string>()
 
 export function registerTempChannel(channel: VoiceChannel) {
     tempChannels.add(channel.id)
-    console.log(`Registered temp channel: ${  channel.id}`)
+    console.log(`Registered temp channel: ${channel.id}`)
 }

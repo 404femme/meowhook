@@ -1,5 +1,5 @@
 import { client } from '@/shared/consts/client'
-import type { VoiceState } from 'discord.js';
+import type { VoiceState } from 'discord.js'
 import { ChannelType, Events, PermissionFlagsBits } from 'discord.js'
 import { registerTempChannel } from '@/features/room-handling/autovoice/tempChannels'
 
