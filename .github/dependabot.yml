@@ -8,21 +8,10 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
-    allow:
-      - dependency-type: "production"
+      interval: "daily"
+    target-branch: "dev"
     versioning-strategy: "increase"
     open-pull-requests-limit: 10
     ignore:
       - dependency-name: "discord.js"
         update-types: ["version-update:semver-major"]
-    
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "monthly"
