@@ -3,9 +3,9 @@ import { client } from '@/shared/consts/client'
 import { validateEnvVars } from '@/shared/config/env'
 import * as process from 'node:process'
 import { Events } from 'discord.js'
-import { featureLogging } from './logging'
-import { featureAutoRole } from './moderation'
-import { featureRoomHandler } from './room-handling'
+import { featureLogging } from './features/logging'
+import { featureAutoRole } from './features/moderation'
+import { featureRoomHandler } from './features/room-handling'
 
 validateEnvVars()
 featureLogging()
