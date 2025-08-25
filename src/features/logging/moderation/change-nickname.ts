@@ -110,7 +110,6 @@ const attachExecutor = async (newMember: GuildMember, embed: EmbedBuilder) => {
     const executor = nicknameChangeLog?.executor
     const isExecutorSameAsUser = executor?.id === newMember.id
     let executorFields: APIEmbedField | null = null
-    let isSelfChange = false
 
     if (!isExecutorSameAsUser) {
         executorFields = {
@@ -118,19 +117,9 @@ const attachExecutor = async (newMember: GuildMember, embed: EmbedBuilder) => {
             value: `${executor?.toString()}`,
             inline: true,
         }
-    } else {
-        isSelfChange = true
     }
 
     if (executorFields) {
         embed.addFields(executorFields)
-    }
-
-    if (isSelfChange) {
-        embed.addFields({
-            name: 'Note',
-            value: 'User changed their own nickname',
-            inline: false,
-        })
     }
 }
