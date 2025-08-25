@@ -1,33 +1,60 @@
 name: Deploy Discord Bot
 
 on:
-  push:
-    branches: [main]
+    push:
+        branches: [main]
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            # Clone, build, and clean up in one go
-            rm -rf ~/meowhook-bot  # Force-clean any previous runs
-            git clone https://github.com/404femme/nebula-meowhook ~/meowhook-bot
-            cd ~/meowhook-bot
-            docker build -t meowhook-bot .
-            docker stop meowhook-bot || true
-            docker rm meowhook-bot || true
-            docker run -d \
-              --name meowhook-bot \
-              --restart unless-stopped \
-              -e TOKEN="${{ secrets.TOKEN }}" \
-              -e LOG_CHANNEL_ID="${{ secrets.LOG_CHANNEL_ID }}" \
-              meowhook-bot
-            cd ~
-            rm -rf ~/meowhook-bot  # Delete repo after build
-            docker system prune -f  # Clean unused Docker data
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 10
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'pnpm'
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Run format check
+              run: pnpm run format:check
+
+            - name: Run linting
+              run: pnpm run lint
+
+    deploy:
+        runs-on: ubuntu-latest
+        needs: lint
+        steps:
+            - name: Deploy via SSH
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.SSH_HOST }}
+                  username: ${{ secrets.SSH_USERNAME }}
+                  key: ${{ secrets.SSH_KEY }}
+                  script: |
+                      # Clone, build, and clean up in one go
+                      rm -rf ~/meowhook-bot  # Force-clean any previous runs
+                      git clone https://github.com/404femme/nebula-meowhook ~/meowhook-bot
+                      cd ~/meowhook-bot
+                      docker build -t meowhook-bot .
+                      docker stop meowhook-bot || true
+                      docker rm meowhook-bot || true
+                      docker run -d \
+                        --name meowhook-bot \
+                        --restart unless-stopped \
+                        -e TOKEN="${{ secrets.TOKEN }}" \
+                        -e LOG_CHANNEL_ID="${{ secrets.LOG_CHANNEL_ID }}" \
+                        meowhook-bot
+                      cd ~
+                      rm -rf ~/meowhook-bot  # Delete repo after build
+                      docker system prune -f  # Clean unused Docker data
