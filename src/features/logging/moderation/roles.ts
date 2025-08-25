@@ -4,12 +4,15 @@ import { getLogColor, LogEventTypes, type LogEventType } from '@/shared/consts/c
 import type {
     GuildMember,
     NewsChannel,
+    PartialUser,
     Role,
     StageChannel,
     TextChannel,
+    User,
     VoiceChannel,
 } from 'discord.js'
 import {
+    AuditLogEvent,
     EmbedBuilder,
     Events,
     type PrivateThreadChannel,
@@ -17,12 +20,19 @@ import {
 } from 'discord.js'
 
 export function roleUpdateEvent() {
-    client.on(Events.GuildMemberUpdate, (oldMember, newMember) => {
-        const textChannel = newMember.guild.channels.cache.get(logChannelId)
+    client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
+        const logChannel = newMember.guild.channels.cache.get(logChannelId)
 
-        if (!textChannel || !textChannel.isTextBased()) return
+        if (!logChannel || !logChannel.isTextBased()) return
 
         try {
+            const auditLogs = await newMember.guild.fetchAuditLogs({
+                type: AuditLogEvent.MemberRoleUpdate,
+                limit: 1,
+            })
+            const auditEntry = auditLogs.entries.find(entry => entry.target?.id === newMember.id)
+            const executor = auditEntry?.executor
+
             const addedRoles = newMember.roles.cache.filter(
                 role => !oldMember.roles.cache.has(role.id),
             )
@@ -32,24 +42,26 @@ export function roleUpdateEvent() {
             )
 
             for (const [_, role] of addedRoles) {
-                logRoleChange(
+                sendEmbedToLogChannel(
                     newMember,
                     role,
                     'added',
                     '➕ Role Added',
                     LogEventTypes.ROLE_ADD,
-                    textChannel,
+                    logChannel,
+                    executor,
                 )
             }
 
             for (const [_, role] of removedRoles) {
-                logRoleChange(
+                sendEmbedToLogChannel(
                     newMember,
                     role,
                     'lost',
                     '➖ Role Removed',
                     LogEventTypes.ROLE_REMOVE,
-                    textChannel,
+                    logChannel,
+                    executor,
                 )
             }
         } catch (error) {
@@ -58,7 +70,7 @@ export function roleUpdateEvent() {
     })
 }
 
-function logRoleChange(
+function sendEmbedToLogChannel(
     member: GuildMember,
     role: Role,
     action: string,
@@ -71,6 +83,7 @@ function logRoleChange(
         | PublicThreadChannel<boolean>
         | PrivateThreadChannel
         | VoiceChannel,
+    executor?: User | PartialUser | null | undefined,
 ) {
     const embed = new EmbedBuilder()
         .setTitle(title)
@@ -81,7 +94,13 @@ function logRoleChange(
         .setThumbnail(member.user.displayAvatarURL())
         .setTimestamp()
 
+    if (executor) {
+        embed.addFields({ name: 'Executor', value: executor.toString(), inline: true })
+    }
+
     void textChannel.send({ embeds: [embed], ...PREVENT_DUPLICATE_MENTIONS })
 
-    console.log(`${member.user.tag} ${action} the ${role.name} role`)
+    console.log(
+        `${member.user.tag} ${action} the ${role.name} role by ${executor?.tag ?? 'unknown'}`,
+    )
 }
