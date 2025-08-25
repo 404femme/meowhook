@@ -1,19 +1,21 @@
 import { logChannelId } from '@/shared/consts/state'
 import { client } from '@/shared/consts/client'
 import { getLogColor, LogEventTypes } from '@/shared/consts/colors'
-import type {
-    Message} from 'discord.js';
+import type { Message } from 'discord.js'
 import {
     Events,
     EmbedBuilder,
     type OmitPartialGroupDMChannel,
     type PartialMessage,
 } from 'discord.js'
+import { isInExcludedCategory } from '@/features/logging/shared/excluded'
 
 const placeholderAvatar = new URL('./assets/images/placeholder-avatar.jpg', import.meta.url).href
 
 export function deleteMessageEvent() {
-    client.on(Events.MessageDelete, message => {
+    client.on(Events.MessageDelete, async message => {
+        if (await isInExcludedCategory(message)) return
+
         const logChannel = message.guild?.channels.cache.get(logChannelId)
         const isServer = message.guild
         const isBot = message.author?.bot
