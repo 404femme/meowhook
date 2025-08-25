@@ -1,7 +1,7 @@
 import { client } from '@/shared/consts/client'
 import type { VoiceState } from 'discord.js';
 import { ChannelType, Events, PermissionFlagsBits } from 'discord.js'
-import { registerTempChannel } from '@/room-handling/autovoice/tempChannels'
+import { registerTempChannel } from '@/features/room-handling/autovoice/tempChannels'
 
 export const LOBBY_CHANNEL_ID = '1408046517142687774'
 

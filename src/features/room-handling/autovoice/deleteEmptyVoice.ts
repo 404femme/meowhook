@@ -1,6 +1,6 @@
 import { Events, type VoiceState } from 'discord.js'
 import { client } from '@/shared/consts/client.ts'
-import { tempChannels } from '@/room-handling/autovoice/tempChannels.ts'
+import { tempChannels } from '@/features/room-handling/autovoice/tempChannels'
 
 export function deleteEmpty() {
     client.on(Events.VoiceStateUpdate, async (oldState: VoiceState) => {
