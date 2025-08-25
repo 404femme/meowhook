@@ -3,7 +3,7 @@ import type { ColorResolvable } from 'discord.js'
 export const LogEventTypes = {
     USER_JOIN: 'USER_JOIN',
     USER_LEAVE: 'USER_LEAVE',
-    
+
     USER_MOVE: 'USER_MOVE',
     ROLE_ADD: 'ROLE_ADD',
     ROLE_REMOVE: 'ROLE_REMOVE',
