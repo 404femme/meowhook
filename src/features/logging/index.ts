@@ -11,11 +11,13 @@ import { voiceStreamingEvent } from '@/features/logging/voice/streaming'
 export function featureLogging() {
     editMessageEvent()
     deleteMessageEvent()
+
     banUserEvent()
+    changeNicknameEvent()
+    handleInvitesEvent()
     kickUserEvent()
     roleUpdateEvent()
+
     voiceStateUpdateEvent()
     voiceStreamingEvent()
-    handleInvitesEvent()
-    changeNicknameEvent()
 }
