@@ -5,7 +5,8 @@ import { getLogColor, LogEventTypes } from '@/shared/consts/colors'
 import { logChannelId } from '@/shared/consts/state'
 
 const threeSeconds = 3000
-const waitForAuditLogsToPopulate = async () => await new Promise(resolve => setTimeout(resolve, threeSeconds))
+const waitForAuditLogsToPopulate = async () =>
+    await new Promise(resolve => setTimeout(resolve, threeSeconds))
 
 export function kickUserEvent() {
     client.on(Events.GuildMemberRemove, async member => {

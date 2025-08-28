@@ -5,13 +5,13 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    target-branch: "dev"
-    versioning-strategy: "increase"
-    open-pull-requests-limit: 10
-    ignore:
-      - dependency-name: "discord.js"
-        update-types: ["version-update:semver-major"]
+    - package-ecosystem: 'npm'
+      directory: '/'
+      schedule:
+          interval: 'daily'
+      target-branch: 'dev'
+      versioning-strategy: 'increase'
+      open-pull-requests-limit: 10
+      ignore:
+          - dependency-name: 'discord.js'
+            update-types: ['version-update:semver-major']

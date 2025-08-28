@@ -65,9 +65,9 @@ export function changeNicknameEvent() {
                 { name: 'Username', value: userTag, inline: true },
             )
 
-            attachExecutor(newMember, embed)
+            await attachExecutor(newMember, embed)
 
-            void logChannel.send({ embeds: [embed], ...PREVENT_DUPLICATE_MENTIONS })
+            await logChannel.send({ embeds: [embed], ...PREVENT_DUPLICATE_MENTIONS })
 
             console.log(
                 `${newMember.user.tag} changed nickname: ${oldNickname || 'None'} → ${newNickname || 'None'}`,
@@ -112,6 +112,7 @@ const attachExecutor = async (newMember: GuildMember, embed: EmbedBuilder) => {
     const executor = nicknameChangeLog?.executor
     const isExecutorSameAsUser = executor?.id === newMember.id
     let executorFields: APIEmbedField | null = null
+    let isSelfChange = false
 
     if (!isExecutorSameAsUser) {
         executorFields = {
@@ -119,9 +120,19 @@ const attachExecutor = async (newMember: GuildMember, embed: EmbedBuilder) => {
             value: `${executor?.toString()}`,
             inline: true,
         }
+    } else {
+        isSelfChange = true
     }
 
     if (executorFields) {
         embed.addFields(executorFields)
+    }
+
+    if (isSelfChange) {
+        embed.addFields({
+            name: 'Note',
+            value: 'User changed their own nickname',
+            inline: false,
+        })
     }
 }

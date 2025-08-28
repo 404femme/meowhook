@@ -34,6 +34,9 @@ export default tseslint.config(
             '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
             '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
 
+            '@typescript-eslint/no-floating-promises': 'error',
+            '@typescript-eslint/await-thenable': 'error',
+
             // General
             'no-console': ['warn', { allow: ['warn', 'error'] }],
             'prefer-const': 'error',
