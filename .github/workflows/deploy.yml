@@ -81,6 +81,7 @@ jobs:
                        --arg repo_url "https://github.com/${{ github.repository }}" \
                        --arg sha "${{ github.sha }}" \
                        --arg timestamp "${{ github.event.head_commit.timestamp || github.event.repository.updated_at }}" \
+                       --arg commit "${{ github.event.head_commit.message || 'N/A' }}" \
                        '[{
                          "title": "🚀 Deployment Successful",
                          "description": "The project \($repository) has been deployed successfully!",
