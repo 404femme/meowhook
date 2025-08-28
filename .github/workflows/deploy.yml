@@ -99,7 +99,7 @@ jobs:
                            },
                            {
                              "name": "Commit",
-                             "value": "\($sha)",
+                             "value": "\($sha) - \($commit)",
                              "inline": false
                            },
                            {
