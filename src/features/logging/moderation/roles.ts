@@ -44,7 +44,7 @@ export function roleUpdateEvent() {
             )
 
             for (const [_, role] of addedRoles) {
-                sendEmbedToLogChannel(
+                await sendEmbedToLogChannel(
                     newMember,
                     role,
                     'added',
@@ -56,7 +56,7 @@ export function roleUpdateEvent() {
             }
 
             for (const [_, role] of removedRoles) {
-                sendEmbedToLogChannel(
+                await sendEmbedToLogChannel(
                     newMember,
                     role,
                     'lost',
@@ -72,7 +72,7 @@ export function roleUpdateEvent() {
     })
 }
 
-function sendEmbedToLogChannel(
+async function sendEmbedToLogChannel(
     member: GuildMember,
     role: Role,
     action: string,
@@ -100,7 +100,7 @@ function sendEmbedToLogChannel(
         embed.addFields({ name: 'Executor', value: executor.toString(), inline: true })
     }
 
-    void textChannel.send({ embeds: [embed], ...PREVENT_DUPLICATE_MENTIONS })
+    await textChannel.send({ embeds: [embed], ...PREVENT_DUPLICATE_MENTIONS })
 
     console.log(
         `${member.user.tag} ${action} the ${role.name} role by ${executor?.tag ?? 'unknown'}`,

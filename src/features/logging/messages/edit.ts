@@ -46,7 +46,7 @@ export function editMessageEvent() {
                 .setThumbnail(newMessage.author.displayAvatarURL())
                 .setTimestamp()
 
-            void logChannel.send({ embeds: [embed] })
+            await logChannel.send({ embeds: [embed] })
 
             console.log(
                 `Message from ${newMessage.author.tag} was edited in #${newMessage.channel.toString()}`,

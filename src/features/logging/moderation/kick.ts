@@ -59,7 +59,7 @@ export function kickUserEvent() {
                     .setThumbnail(member.user.displayAvatarURL())
                     .setTimestamp()
 
-                void textChannel.send({ embeds: [embed] })
+                await textChannel.send({ embeds: [embed] })
                 console.log(`${member.user.tag} was kicked by ${kickEntry.executor?.tag}`)
                 return
             }
@@ -71,7 +71,7 @@ export function kickUserEvent() {
                 .setThumbnail(member.user.displayAvatarURL())
                 .setTimestamp()
 
-            void textChannel.send({ embeds: [embed] })
+            await textChannel.send({ embeds: [embed] })
             console.log(`${member.user.tag} left the server`)
         } catch (error) {
             console.error('Error handling member removal:', error)

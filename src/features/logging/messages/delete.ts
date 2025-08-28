@@ -38,7 +38,7 @@ export function deleteMessageEvent() {
 
             handleAttachments(message, embed)
 
-            void logChannel.send({ embeds: [embed] })
+            await logChannel.send({ embeds: [embed] })
 
             console.log(`Message from ${message.author?.tag} was deleted`)
         } catch (error) {
