@@ -1,6 +1,3 @@
-import { logChannelId, PREVENT_DUPLICATE_MENTIONS } from '@/shared/consts/state'
-import { client } from '@/shared/consts/client'
-import { getLogColor, LogEventTypes, type LogEventType } from '@/shared/consts/colors'
 import type {
     GuildMember,
     NewsChannel,
@@ -11,6 +8,7 @@ import type {
     User,
     VoiceChannel,
 } from 'discord.js'
+
 import {
     AuditLogEvent,
     EmbedBuilder,
@@ -18,6 +16,10 @@ import {
     type PrivateThreadChannel,
     type PublicThreadChannel,
 } from 'discord.js'
+
+import { client } from '@/shared/consts/client'
+import { getLogColor, LogEventTypes, type LogEventType } from '@/shared/consts/colors'
+import { logChannelId, PREVENT_DUPLICATE_MENTIONS } from '@/shared/consts/state'
 
 export function roleUpdateEvent() {
     client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {

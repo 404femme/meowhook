@@ -1,8 +1,10 @@
 import 'dotenv/config'
-import { client } from '@/shared/consts/client'
-import { validateEnvVars } from '@/shared/config/env'
-import * as process from 'node:process'
 import { Events } from 'discord.js'
+import * as process from 'node:process'
+
+import { validateEnvVars } from '@/shared/config/env'
+import { client } from '@/shared/consts/client'
+
 import { featureLogging } from './features/logging'
 import { featureAutoRole } from './features/moderation'
 import { featureRoomHandler } from './features/room-handling'

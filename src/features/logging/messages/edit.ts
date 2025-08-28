@@ -1,8 +1,9 @@
-import { logChannelId } from '@/shared/consts/state'
+import { EmbedBuilder, Events } from 'discord.js'
+
+import { isInExcludedCategory } from '@/features/logging/shared/excluded'
 import { client } from '@/shared/consts/client'
 import { getLogColor, LogEventTypes } from '@/shared/consts/colors'
-import { EmbedBuilder, Events } from 'discord.js'
-import { isInExcludedCategory } from '@/features/logging/shared/excluded'
+import { logChannelId } from '@/shared/consts/state'
 
 const messageEdits = new Map<string, string>()
 

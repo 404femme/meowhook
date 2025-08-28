@@ -1,7 +1,8 @@
-import { logChannelId } from '@/shared/consts/state'
+import { Events, AuditLogEvent, EmbedBuilder } from 'discord.js'
+
 import { client } from '@/shared/consts/client'
 import { getLogColor, LogEventTypes } from '@/shared/consts/colors'
-import { Events, AuditLogEvent, EmbedBuilder } from 'discord.js'
+import { logChannelId } from '@/shared/consts/state'
 
 const threeSeconds = 3000
 const waitForAuditLogsToPopulate = async () => await new Promise(resolve => setTimeout(resolve, threeSeconds))

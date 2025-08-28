@@ -1,9 +1,11 @@
-import { logChannelId, PREVENT_DUPLICATE_MENTIONS } from '@/shared/consts/state'
+import type { EmbedBuilder } from 'discord.js'
+
+import { Events } from 'discord.js'
+
+import { createVoiceEmbed } from '@/features/logging/voice/embeds/voice'
 import { client } from '@/shared/consts/client'
 import { getLogColor, LogEventTypes } from '@/shared/consts/colors'
-import type { EmbedBuilder } from 'discord.js'
-import { Events } from 'discord.js'
-import { createVoiceEmbed } from '@/features/logging/voice/embeds/voice'
+import { logChannelId, PREVENT_DUPLICATE_MENTIONS } from '@/shared/consts/state'
 
 export function voiceStateUpdateEvent() {
     client.on(Events.VoiceStateUpdate, (oldState, newState) => {
