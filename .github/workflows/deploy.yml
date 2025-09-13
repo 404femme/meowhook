@@ -54,10 +54,10 @@ jobs:
                       EOF
 
                       # Stop and remove existing containers
-                      docker-compose down || true
+                      docker compose down || true
 
-                      # Build and start with docker-compose
-                      docker-compose up -d --build
+                      # Build and start with docker compose
+                      docker compose up -d --build
 
                       # Cleanup
                       cd ~
