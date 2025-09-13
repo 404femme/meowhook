@@ -2,6 +2,7 @@ import 'dotenv/config'
 import { Events } from 'discord.js'
 import * as process from 'node:process'
 
+import { handleMonitoring } from '@/external/monitoring'
 import { validateEnvVars } from '@/shared/config/env'
 import { client } from '@/shared/consts/client'
 
@@ -10,6 +11,7 @@ import { featureAutoRole } from './features/moderation'
 import { featureRoomHandler } from './features/room-handling'
 
 validateEnvVars()
+
 featureLogging()
 featureAutoRole()
 featureRoomHandler()
@@ -19,3 +21,5 @@ client.once(Events.ClientReady, readyClient => {
 })
 
 await client.login(process.env.TOKEN)
+
+handleMonitoring()
