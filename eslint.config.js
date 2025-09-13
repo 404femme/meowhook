@@ -2,16 +2,18 @@ import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import prettier from 'eslint-config-prettier'
 import eslint from '@eslint/js'
+import perfectionist from 'eslint-plugin-perfectionist'
 
 export default tseslint.config(
-    {
-        ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', 'eslint.config.js'],
-    },
     js.configs.recommended,
     eslint.configs.recommended,
     tseslint.configs.recommended,
     prettier,
     {
+        plugins: {
+            perfectionist,
+        },
+        ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', 'eslint.config.js'],
         languageOptions: {
             parserOptions: {
                 project: true,
@@ -40,6 +42,8 @@ export default tseslint.config(
             'prefer-const': 'error',
             'object-shorthand': 'error',
             'prefer-template': 'error',
+            '@typescript-eslint/no-misused-promises': [0],
+            'perfectionist/sort-imports': 'error',
         },
     },
     {

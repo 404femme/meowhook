@@ -1,6 +1,3 @@
-import { logChannelId, PREVENT_DUPLICATE_MENTIONS } from '@/shared/consts/state'
-import { client } from '@/shared/consts/client'
-import { getLogColor, LogEventTypes, type LogEventType } from '@/shared/consts/colors'
 import type {
     GuildMember,
     NewsChannel,
@@ -11,6 +8,7 @@ import type {
     User,
     VoiceChannel,
 } from 'discord.js'
+
 import {
     AuditLogEvent,
     EmbedBuilder,
@@ -18,6 +16,10 @@ import {
     type PrivateThreadChannel,
     type PublicThreadChannel,
 } from 'discord.js'
+
+import { client } from '@/shared/consts/client'
+import { getLogColor, LogEventTypes, type LogEventType } from '@/shared/consts/colors'
+import { logChannelId, PREVENT_DUPLICATE_MENTIONS } from '@/shared/consts/state'
 
 export function roleUpdateEvent() {
     client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
@@ -42,7 +44,7 @@ export function roleUpdateEvent() {
             )
 
             for (const [_, role] of addedRoles) {
-                sendEmbedToLogChannel(
+                await sendEmbedToLogChannel(
                     newMember,
                     role,
                     'added',
@@ -54,7 +56,7 @@ export function roleUpdateEvent() {
             }
 
             for (const [_, role] of removedRoles) {
-                sendEmbedToLogChannel(
+                await sendEmbedToLogChannel(
                     newMember,
                     role,
                     'lost',
@@ -70,7 +72,7 @@ export function roleUpdateEvent() {
     })
 }
 
-function sendEmbedToLogChannel(
+async function sendEmbedToLogChannel(
     member: GuildMember,
     role: Role,
     action: string,
@@ -98,7 +100,7 @@ function sendEmbedToLogChannel(
         embed.addFields({ name: 'Executor', value: executor.toString(), inline: true })
     }
 
-    void textChannel.send({ embeds: [embed], ...PREVENT_DUPLICATE_MENTIONS })
+    await textChannel.send({ embeds: [embed], ...PREVENT_DUPLICATE_MENTIONS })
 
     console.log(
         `${member.user.tag} ${action} the ${role.name} role by ${executor?.tag ?? 'unknown'}`,

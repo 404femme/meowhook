@@ -1,7 +1,5 @@
-import { logChannelId, PREVENT_DUPLICATE_MENTIONS } from '@/shared/consts/state'
-import { client } from '@/shared/consts/client'
-import { getLogColor, LogEventTypes } from '@/shared/consts/colors'
 import type { GuildMember } from 'discord.js'
+
 import {
     EmbedBuilder,
     Events,
@@ -9,6 +7,10 @@ import {
     AuditLogEvent,
     type APIEmbedField,
 } from 'discord.js'
+
+import { client } from '@/shared/consts/client'
+import { getLogColor, LogEventTypes } from '@/shared/consts/colors'
+import { logChannelId, PREVENT_DUPLICATE_MENTIONS } from '@/shared/consts/state'
 
 export function changeNicknameEvent() {
     client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {

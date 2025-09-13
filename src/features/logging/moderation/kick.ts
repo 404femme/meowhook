@@ -1,7 +1,8 @@
-import { logChannelId } from '@/shared/consts/state'
+import { Events, AuditLogEvent, EmbedBuilder } from 'discord.js'
+
 import { client } from '@/shared/consts/client'
 import { getLogColor, LogEventTypes } from '@/shared/consts/colors'
-import { Events, AuditLogEvent, EmbedBuilder } from 'discord.js'
+import { logChannelId } from '@/shared/consts/state'
 
 const threeSeconds = 3000
 const waitForAuditLogsToPopulate = async () =>
@@ -58,7 +59,7 @@ export function kickUserEvent() {
                     .setThumbnail(member.user.displayAvatarURL())
                     .setTimestamp()
 
-                void textChannel.send({ embeds: [embed] })
+                await textChannel.send({ embeds: [embed] })
                 console.log(`${member.user.tag} was kicked by ${kickEntry.executor?.tag}`)
                 return
             }
@@ -70,7 +71,7 @@ export function kickUserEvent() {
                 .setThumbnail(member.user.displayAvatarURL())
                 .setTimestamp()
 
-            void textChannel.send({ embeds: [embed] })
+            await textChannel.send({ embeds: [embed] })
             console.log(`${member.user.tag} left the server`)
         } catch (error) {
             console.error('Error handling member removal:', error)

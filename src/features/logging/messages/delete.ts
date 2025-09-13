@@ -1,14 +1,16 @@
-import { logChannelId } from '@/shared/consts/state'
-import { client } from '@/shared/consts/client'
-import { getLogColor, LogEventTypes } from '@/shared/consts/colors'
 import type { Message } from 'discord.js'
+
 import {
     Events,
     EmbedBuilder,
     type OmitPartialGroupDMChannel,
     type PartialMessage,
 } from 'discord.js'
+
 import { isInExcludedCategory } from '@/features/logging/shared/excluded'
+import { client } from '@/shared/consts/client'
+import { getLogColor, LogEventTypes } from '@/shared/consts/colors'
+import { logChannelId } from '@/shared/consts/state'
 
 const placeholderAvatar = new URL('./assets/images/placeholder-avatar.jpg', import.meta.url).href
 
@@ -36,7 +38,7 @@ export function deleteMessageEvent() {
 
             handleAttachments(message, embed)
 
-            void logChannel.send({ embeds: [embed] })
+            await logChannel.send({ embeds: [embed] })
 
             console.log(`Message from ${message.author?.tag} was deleted`)
         } catch (error) {

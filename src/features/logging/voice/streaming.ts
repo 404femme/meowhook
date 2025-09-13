@@ -1,11 +1,12 @@
-import { logChannelId, PREVENT_DUPLICATE_MENTIONS } from '@/shared/consts/state'
+import { Events } from 'discord.js'
+
 import { createVoiceEmbed } from '@/features/logging/voice/embeds/voice'
 import { client } from '@/shared/consts/client'
 import { getLogColor, LogEventTypes } from '@/shared/consts/colors'
-import { Events } from 'discord.js'
+import { logChannelId, PREVENT_DUPLICATE_MENTIONS } from '@/shared/consts/state'
 
 export function voiceStreamingEvent() {
-    client.on(Events.VoiceStateUpdate, (oldState, newState) => {
+    client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
         const textChannel = oldState.guild.channels.cache.get(logChannelId)
 
         const isTextChannelValid = textChannel?.isTextBased()
@@ -42,7 +43,7 @@ export function voiceStreamingEvent() {
 
             console.log(`${newState.member?.user.tag} ${action} streaming`)
 
-            void textChannel.send({ embeds: [embed], ...PREVENT_DUPLICATE_MENTIONS })
+            await textChannel.send({ embeds: [embed], ...PREVENT_DUPLICATE_MENTIONS })
         } catch (error) {
             console.error('Error handling voice state update:', error)
         }

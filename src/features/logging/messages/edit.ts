@@ -1,8 +1,9 @@
-import { logChannelId } from '@/shared/consts/state'
+import { EmbedBuilder, Events } from 'discord.js'
+
+import { isInExcludedCategory } from '@/features/logging/shared/excluded'
 import { client } from '@/shared/consts/client'
 import { getLogColor, LogEventTypes } from '@/shared/consts/colors'
-import { EmbedBuilder, Events } from 'discord.js'
-import { isInExcludedCategory } from '@/features/logging/shared/excluded'
+import { logChannelId } from '@/shared/consts/state'
 
 const messageEdits = new Map<string, string>()
 
@@ -45,7 +46,7 @@ export function editMessageEvent() {
                 .setThumbnail(newMessage.author.displayAvatarURL())
                 .setTimestamp()
 
-            void logChannel.send({ embeds: [embed] })
+            await logChannel.send({ embeds: [embed] })
 
             console.log(
                 `Message from ${newMessage.author.tag} was edited in #${newMessage.channel.toString()}`,
