@@ -6,8 +6,10 @@ import { Events } from 'discord.js'
 import { featureLogging } from './features/logging'
 import { featureAutoRole } from './features/moderation'
 import { featureRoomHandler } from './features/room-handling'
+import { handleMonitoring } from '@/external/monitoring'
 
 validateEnvVars()
+
 featureLogging()
 featureAutoRole()
 featureRoomHandler()
@@ -17,3 +19,5 @@ client.once(Events.ClientReady, readyClient => {
 })
 
 await client.login(process.env.TOKEN)
+
+handleMonitoring()

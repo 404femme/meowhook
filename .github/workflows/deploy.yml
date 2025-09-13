@@ -42,19 +42,24 @@ jobs:
                   username: ${{ secrets.SSH_USERNAME }}
                   key: ${{ secrets.SSH_KEY }}
                   script: |
-                      # Clone, build, and clean up in one go
-                      rm -rf ~/meowhook-bot  # Force-clean any previous runs
-                      git clone https://github.com/404femme/nebula-meowhook ~/meowhook-bot
-                      cd ~/meowhook-bot
-                      docker build -t meowhook-bot .
-                      docker stop meowhook-bot || true
-                      docker rm meowhook-bot || true
-                      docker run -d \
-                        --name meowhook-bot \
-                        --restart unless-stopped \
-                        -e TOKEN="${{ secrets.TOKEN }}" \
-                        -e LOG_CHANNEL_ID="${{ secrets.LOG_CHANNEL_ID }}" \
-                        meowhook-bot
+                      # Clone the repository
+                      rm -rf ~/nebula-bot
+                      git clone https://github.com/404femme/nebula-bot ~/nebula-bot
+                      cd ~/nebula-bot
+                      
+                      # Create .env file from secrets
+                      cat > .env << EOF
+                      TOKEN=${{ secrets.TOKEN }}
+                      LOG_CHANNEL_ID=${{ secrets.LOG_CHANNEL_ID }}
+                      EOF
+                      
+                      # Stop and remove existing containers
+                      docker-compose down || true
+                      
+                      # Build and start with docker-compose
+                      docker-compose up -d --build
+                      
+                      # Cleanup
                       cd ~
-                      rm -rf ~/meowhook-bot  # Delete repo after build
-                      docker system prune -f  # Clean unused Docker data
+                      rm -rf ~/nebula-bot
+                      docker system prune -f

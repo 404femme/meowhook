@@ -1,6 +1,6 @@
 version: '3'
 services:
-    discord-bot:
+    nebula-bot:
         build: . # This tells compose to build using the Dockerfile
         image: nebula-bot # Optional: names the built image
         container_name: nebula-bot # Sets the container name
@@ -16,3 +16,23 @@ services:
             options:
                 max-size: '10m'
                 mode: non-blocking # ← Prevents log buffering issues
+        networks:
+            - nebula-network
+
+    nginx:
+        image: nginx:alpine
+        container_name: nebula-nginx
+        ports:
+            - '80:80'
+        volumes:
+            - ./nginx.conf:/etc/nginx/nginx.conf
+            - ./logs/nginx:/var/log/nginx
+        restart: unless-stopped
+        depends_on:
+            - nebula-bot
+        networks:
+            - nebula-network
+
+networks:
+    nebula-network:
+        driver: bridge
